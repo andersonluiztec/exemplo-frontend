@@ -16,7 +16,7 @@ steps:
 
         echo "🏗 Buildando Angular..."
         npm install -g @angular/cli
-        ng build
+        ng build --base-href ./
 
         echo "📂 Onde estou:"
         pwd
