@@ -17,6 +17,7 @@ steps:
         echo "🏗 Buildando Angular..."
         npm install -g @angular/cli
         ng build
+        cd workspace/dist/frontend/browser
 
   # =========================
   # ☁️ DEPLOY PARA BUCKET
