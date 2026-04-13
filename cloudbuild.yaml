@@ -17,8 +17,15 @@ steps:
         echo "🏗 Buildando Angular..."
         npm install -g @angular/cli
         ng build
-        echo "📂 Estrutura completa:"
-        ls -R
+
+        echo "📂 Onde estou:"
+        pwd
+
+        echo "📂 Listando tudo na raiz do workspace:"
+        ls -la /workspace
+
+        echo "📂 Conteúdo do dist:"
+        ls -R /workspace/dist
 
   # =========================
   # ☁️ DEPLOY PARA BUCKET
