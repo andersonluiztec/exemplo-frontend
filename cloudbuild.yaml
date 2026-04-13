@@ -27,7 +27,7 @@ steps:
       - -c
       - |
         echo "☁️ Enviando arquivos para o bucket..."
-        gsutil -m rsync -r frontend/dist/frontend/browser gs://exemplo-frontend
+        gsutil -m rsync -r workspace/dist/frontend gs://exemplo-frontend
 
 options:
   logging: CLOUD_LOGGING_ONLY
