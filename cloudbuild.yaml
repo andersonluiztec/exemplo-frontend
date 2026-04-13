@@ -30,13 +30,13 @@ steps:
   # =========================
   # ☁️ DEPLOY PARA BUCKET
   # =========================
-  #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  #  entrypoint: bash
-  #  args:
-  #    - -c
-  #    - |
-  #      echo "☁️ Enviando arquivos para o bucket..."
-  #      gsutil -m rsync -r workspace/dist/frontend gs://exemplo-frontend
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        echo "☁️ Enviando arquivos para o bucket..."
+        gsutil -m rsync -r /workspace/dist/frontend/browser gs://exemplo-frontend
 
 options:
   logging: CLOUD_LOGGING_ONLY
