@@ -1,0 +1,31 @@
+steps:
+
+  # =========================
+  # 🔧 BUILD ANGULAR
+  # =========================
+  - name: 'node:18'
+    dir: 'frontend'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        echo "📦 Instalando dependências..."
+        npm install
+
+        echo "🏗 Buildando Angular..."
+        npm install -g @angular/cli
+        ng build
+
+  # =========================
+  # ☁️ DEPLOY PARA BUCKET
+  # =========================
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        echo "☁️ Enviando arquivos para o bucket..."
+        gsutil -m rsync -r frontend/dist/frontend/browser gs://exemplo-frontend
+
+options:
+  logging: CLOUD_LOGGING_ONLY
