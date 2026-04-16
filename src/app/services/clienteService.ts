@@ -30,7 +30,10 @@ export class ClienteService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<Cliente[]>(`${this.baseUrl}/clientes`, { headers }
-    );
+    if (token != '') {
+      return this.http.get<Cliente[]>(`${this.baseUrl}/clientes/secure`, { headers });
+    } else {
+      return this.http.get<Cliente[]>(`${this.baseUrl}/clientes`);
+    }
   }
 }
