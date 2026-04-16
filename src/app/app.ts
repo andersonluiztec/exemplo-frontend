@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ApiService, Cliente } from './api';
+import { ClienteService, Cliente } from './services/clienteService';
+import { AuthService, User } from './services/authService';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { timeout } from 'rxjs';
@@ -15,12 +16,15 @@ export class App {
   protected readonly title = signal('frontend');
 
   clientes: Cliente[] = [];
+  user: User = { email: '', passwrd: ''};
   clientesFiltrados: Cliente[] = [];
   filtroNome: string = '';
+  token: string = '';
   loading = false;
+  showLogin = false;
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef
-) {}
+  constructor(private clienteService: ClienteService, private cdr: ChangeDetectorRef, public authService: AuthService) {
+  }
 
   ngOnInit(): void {
       this.buscar();
@@ -28,8 +32,14 @@ export class App {
 
    buscar() {
   this.loading = true;
-  
-  this.apiService.listarClientes()
+
+  this.token = '';
+
+  if (this.showLogin) {
+    this.token = this.authService.getToken() ?? '';
+  }
+
+  this.clienteService.listarClientes(this.token)
     .subscribe(data => {
       this.clientes = data;
       this.aplicarFiltro();
@@ -57,6 +67,19 @@ export class App {
 
   console.log(this.clientesFiltrados);
 
+  }
+
+  async login() {
+  this.authService.login(this.user.email, this.user.passwrd)
+    .subscribe(res => {
+      this.authService.saveToken(res.idToken);
+      this.cdr.detectChanges();
+    });
+    this.cdr.detectChanges();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
 

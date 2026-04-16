@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://34.72.32.178:8080'
+  apiUrl: 'https://exemplo-backend-axgjezso.uc.gateway.dev'
 };

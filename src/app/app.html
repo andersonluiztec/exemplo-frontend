@@ -85,6 +85,23 @@ tbody tr:hover {
 <main class="main">
   <div class="container">
 
+    <input type="checkbox" [(ngModel)]="showLogin" [checked]="showLogin">
+    <label for="MostrarLogin">Mostrar Login</label>
+
+    <div *ngIf="showLogin && !authService.isLogged()">
+      <h2>Login</h2>
+      <input [(ngModel)]="user.email" placeholder="Email">
+      <input [(ngModel)]="user.passwrd" placeholder="Password" type="password">
+      <button (click)="login()">Entrar</button>
+    </div>
+    
+    <div *ngIf="showLogin && authService.isLogged()">
+      <label>{{user.email}}</label>
+      <button (click)="logout()">Logout</button>
+    </div>
+
+
+
     <h1>📋 Gestão de Clientes</h1>
 
     <div class="actions">
